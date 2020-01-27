@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
+import Display from './components/Display';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends React.Component {
+  
+  state = {
+    playerData: []
+  };
+
+  componentDidMount() {
+    fetch('http://localhost:5000/api/players')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Here is player data', data);
+
+        this.setState({ ...this.state.playerData, playerData: data });
+      })
+      .catch(error => console.log('Did NOT get player data', error));
+  };
+
+  render() {  
+    return (
+        <div className="App">
+          <header className="App-header">
+            <h1>Women's World Cup Soccer</h1>
+            <h2>Google Searches by Player</h2>
+          </header>
+          {this.state.playerData.map(player => {
+            return <Display key={player.id} player={player} />
+          })}
+        </div>
+    );
+  };
+};
 
 export default App;
