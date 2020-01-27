@@ -1,5 +1,6 @@
 import React from 'react';
 import Display from './components/Display';
+import NavBar from './components/NavBar';
 import './App.css';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
   render() {  
     return (
         <div className="App">
+          <NavBar />
           <header className="App-header">
             <h1>Women's World Cup Soccer</h1>
             <h2>Google Searches by Player</h2>
